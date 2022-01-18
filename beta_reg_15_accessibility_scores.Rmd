@@ -1,0 +1,158 @@
+---
+title: "Beta regression between vaccine rate ~ accessibility + IMD decile + ethnic composition + car ownership"
+output: rmarkdown::github_document
+---
+
+# read data
+```{r}
+fca<- read.csv("accessibility_imd_ethnic_exclude.csv", sep=",")
+
+```
+```{r}
+#fca$MSOADECILE <- as.factor(fca$MSOADECILE)
+fca$MSOADECILE <- factor(fca$MSOADECILE, levels = c(1,2,3,4,5,6,7,8,9,10))
+```
+
+# Import beta regression library
+```{r}
+library(betareg)
+```
+
+```{r}
+head(fca)
+```
+
+# 2SFCA
+## 10 miles
+```{r}
+scfa2_10 = betareg(vaccination_percentage_2nddose ~ X2sfca_10 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other.,
+data = fca)
+summary(scfa2_10)
+AIC(scfa2_10)
+```
+
+
+## 15 miles
+```{r}
+scfa2_15 = betareg(vaccination_percentage_2nddose ~ X2sfca_15 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other.,
+data = fca)
+summary(scfa2_15)
+AIC(scfa2_15)
+```
+
+## 20 mmiles
+```{r}
+scfa2_20 = betareg(vaccination_percentage_2nddose ~ X2sfca_20 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other.,
+data = fca)
+summary(scfa2_20)
+AIC(scfa2_20)
+```
+
+## 25 miles
+```{r}
+scfa2_25 = betareg(vaccination_percentage_2nddose ~ X2sfca_25 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other.,
+data = fca)
+summary(scfa2_25)
+AIC(scfa2_25)
+```
+
+## 30 miles
+```{r}
+scfa2_30 = betareg(vaccination_percentage_2nddose ~ X2sfca_30 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other.,data = fca)
+summary(scfa2_30)
+AIC(scfa2_30)
+```
+
+# E2SFCA
+## 10 miles
+```{r}
+E2scfa_10 = betareg(vaccination_percentage_2nddose ~ E2sfca_10 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other.,data = fca)
+summary(E2scfa_10)
+AIC(E2scfa_10)
+```
+
+## 15 miles
+```{r}
+E2scfa_15 = betareg(vaccination_percentage_2nddose ~ E2sfca_15 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other., data = fca)
+summary(E2scfa_15)
+AIC(E2scfa_15)
+```
+
+## 20 miles
+```{r}
+E2scfa_20 = betareg(vaccination_percentage_2nddose ~ E2sfca_20 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other., data = fca)
+summary(E2scfa_20)
+AIC(E2scfa_20)
+```
+
+## 25 miles
+```{r}
+E2scfa_25 = betareg(vaccination_percentage_2nddose ~ E2sfca_25 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other., data = fca)
+summary(E2scfa_25)
+AIC(E2scfa_25)
+```
+
+## 30 miles
+```{r}
+E2scfa_30 = betareg(vaccination_percentage_2nddose ~ E2sfca_30 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other., data = fca)
+summary(E2scfa_30)
+AIC(E2scfa_30)
+```
+
+# 3SFCA
+## 10 miles
+```{r}
+scfa3_10 = betareg(vaccination_percentage_2nddose ~ X3sfca_10 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other.,
+data = fca)
+summary(scfa3_10)
+AIC(scfa3_10)
+```
+
+## 15 miles
+```{r}
+scfa3_15 = betareg(vaccination_percentage_2nddose ~ X3sfca_15 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other.,
+                data = fca)
+summary(scfa3_15)
+AIC(scfa3_15)
+```
+
+## 20 miles
+```{r}
+scfa3_20 = betareg(vaccination_percentage_2nddose ~ X3sfca_20 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other.,
+                data = fca)
+summary(scfa3_20)
+AIC(scfa3_20)
+```
+
+## 25 miles
+```{r}
+scfa3_25 = betareg(vaccination_percentage_2nddose ~ X3sfca_25 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other.,
+                data = fca)
+summary(scfa3_25)
+AIC(scfa3_25)
+```
+
+## 30 miles
+```{r}
+scfa3_30 = betareg(vaccination_percentage_2nddose ~ X3sfca_30 + MSOADECILE + Per_cent_of_households_with_at_least_one_car_or_van + Mixed. + Asian. + Black. + Other.,
+                data = fca)
+summary(scfa3_30)
+AIC(scfa3_30)
+```
+# Combine all results into a table and then copy it into the clipboard
+## Coefficient, AIC, Pseudo R2
+```{r}
+extract_result <- function(output_fca){
+  c(access.coef = summary(output_fca)$coefficients$mean[2,1],
+    access.p.va = summary(output_fca)$coefficients$mean[2,4],
+    aic = AIC(output_fca),
+    pseudo.r.squared = summary(output_fca)$pseudo.r.squared
+    )
+}
+df_fca_result <- lapply(list(scfa2_10, scfa2_15, scfa2_20, scfa2_25, scfa2_30, 
+                             E2scfa_10, E2scfa_15, E2scfa_20, E2scfa_25, E2scfa_30,
+                             scfa3_10, scfa3_15, scfa3_20, scfa3_25, scfa3_30), 
+                        extract_result) %>% bind_rows() %>% as.data.frame()
+row.names(df_fca_result) <- paste0(rep(c("scfa2_", "E2scfa_", "scfa3_"), each = 5), c(10,15,20,25,30))
+write.table(df_fca_result, "clipboard-16384", sep = "\t", quote = FALSE)
+```

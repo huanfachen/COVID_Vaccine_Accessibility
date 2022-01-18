@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# omitting figure files
+Results/*
+
+# omitting euclidean_distance_30mile.csv
+euclidean_distance_30mile.csv
